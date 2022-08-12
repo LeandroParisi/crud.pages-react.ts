@@ -1,22 +1,20 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import Modal from 'shared/templates/Modal/Modal'
 import classNames from 'classnames'
-import { entitiesTypes } from 'shared/interfaces/entities'
-import CardHeader from './subComponents/CardHeader/CardHeader'
+import React, { useState } from 'react'
+import Modal from 'shared/templates/Modal/Modal'
 import styles from './EntityCard.module.scss'
-import EntityCardSection from './subComponents/EntityCardSection/EntityCardSection'
+import { EntityCardProps } from './EntityCard.types'
+import CardHeader from './subComponents/CardHeader/CardHeader'
 import EditModal from './subComponents/EditModal/EditModal'
+import EntityCardSection from './subComponents/EntityCardSection/EntityCardSection'
 import SideBar from './subComponents/Sidebar/SideBar'
 
-const EntityCard = ({
-  entity, type, editEntity, editRequest, activate, deactivate, deleteRequest,
-}) => {
+function EntityCard({ entity } : EntityCardProps) {
   const [openModal, setOpenModal] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const {
     id, name, image, sections, isActive,
   } = entity
+
   return (
     <>
       <Modal
@@ -68,23 +66,4 @@ const EntityCard = ({
   )
 }
 
-EntityCard.propTypes = {
-  entity: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    isActive: PropTypes.bool.isRequired,
-    sections: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  }).isRequired,
-  type: PropTypes.oneOf([...Object.values(entitiesTypes)]).isRequired,
-  editEntity: PropTypes.shape({}).isRequired,
-  editRequest: PropTypes.func.isRequired,
-  activate: PropTypes.func.isRequired,
-  deactivate: PropTypes.func.isRequired,
-  deleteRequest: PropTypes.func,
-}
-
-EntityCard.defaultProps = {
-  deleteRequest: null,
-}
-export default EntityCard
+export { EntityCard }

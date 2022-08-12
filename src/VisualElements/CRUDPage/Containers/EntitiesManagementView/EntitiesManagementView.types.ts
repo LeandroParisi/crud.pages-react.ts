@@ -1,13 +1,12 @@
 /* eslint-disable no-use-before-define */
 import { ICrudActions } from 'Typing/Interfaces/IActions/ICrudActions'
 import { IBaseEntityAdapter } from 'Typing/Interfaces/IBaseEntityAdapter'
-import { CustomId } from 'Typing/Types/CustomId'
 
-export interface EntitiesManagementViewProps<TId extends CustomId, TEntityTypes, TEntity> {
-  entityAdapter : IBaseEntityAdapter<TEntity, TId>
+export interface EntitiesManagementViewProps<TEntityTypes, TEntity> {
+  entityAdapter : IBaseEntityAdapter<TEntity>
   type : keyof TEntityTypes
   entities : Array<TEntity>
-  crudActionProvider : ICrudActions<TId, TEntity>
+  crudActionProvider : ICrudActions<TEntity>
   classNames? : EntityManagementCSSClasses
   options? : EntitiesManagementOptions
 }
@@ -24,10 +23,10 @@ export interface EntitiesManagementOptions {
   }
 }
 
-export interface IEntityManagementStore<TId extends CustomId, TEntityTypes, TEntity> {
-  entityAdapter : IBaseEntityAdapter<TEntity, TId>
+export interface IEntityManagementStore<TEntityTypes, TEntity> {
+  entityAdapter : IBaseEntityAdapter<TEntity>
   type : keyof TEntityTypes
-  crudActionProvider : ICrudActions<TId, TEntity>
+  crudActionProvider : ICrudActions<TEntity>
   classNames? : EntityManagementCSSClasses
   options? : EntitiesManagementOptions
 }

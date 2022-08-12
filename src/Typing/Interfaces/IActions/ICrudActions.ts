@@ -1,24 +1,23 @@
-import { CustomId } from "Typing/Types/CustomId";
-import { IActionResponse } from "./IActionResponse";
+import { CustomId } from 'Typing/Types'
+import { IActionResponse } from './IActionResponse'
 
 export type ICreateEntityAction<TEntity> = (params : {body : TEntity}) => Promise<IActionResponse>
 
-export type IUpdateEntityAction<TId extends CustomId, TEntity> = (params : {id: TId, body : TEntity}) => Promise<IActionResponse>
+export type IUpdateEntityAction<TEntity> = (params : {id: CustomId, body : TEntity}) => Promise<IActionResponse>
 
-export type IDeleteEntityAction<TId extends CustomId> = (id : TId) => Promise<IActionResponse>
+export type IDeleteEntityAction = (id : CustomId) => Promise<IActionResponse>
 
-export type IActivateEntityAction<TId extends CustomId> = (id : TId) => Promise<IActionResponse>
+export type IActivateEntityAction = (id : CustomId) => Promise<IActionResponse>
 
-export type IDeactivateEntityAction<TId extends CustomId> = (id : TId) => Promise<IActionResponse>
+export type IDeactivateEntityAction = (id : CustomId) => Promise<IActionResponse>
 
 export type IGetAllEntitiesAction<TEntity> = (query? : string) => Promise<Array<TEntity>>
 
-export interface ICrudActions<TId extends CustomId, TEntity> {
+export interface ICrudActions<TEntity> {
   CreateEntity? : ICreateEntityAction<TEntity>
-  UpdateEntity? : IUpdateEntityAction<TId, TEntity>
-  DeleteEntity? : IDeleteEntityAction<TId>
-  ActivateEntity? : IActivateEntityAction<TId>
-  DeactivateEntity? : IDeactivateEntityAction<TId>
+  UpdateEntity? : IUpdateEntityAction<TEntity>
+  DeleteEntity? : IDeleteEntityAction
+  ActivateEntity? : IActivateEntityAction
+  DeactivateEntity? : IDeactivateEntityAction
   GetAllEntities? : IGetAllEntitiesAction<TEntity>
 }
-

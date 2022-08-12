@@ -1,7 +1,8 @@
-import { EditFieldType } from "./Enums/EditFieldType"
+import { CustomId } from 'Typing/Types'
+import { EditFieldType } from './Enums'
 
-export interface IEntityEdit<TId extends number | string, TValue, TCustomFields>  {
-  id : TId
+export interface IEntityEdit<TValue, TCustomFields> {
+  id : CustomId
   isActive : boolean
   header : IEntityEditHeader
   sections : Array<IEntityEditSection<TValue, TCustomFields>>
@@ -10,7 +11,7 @@ export interface IEntityEdit<TId extends number | string, TValue, TCustomFields>
 export interface IEntityEditHeader {
   image : string
   stateKey : string
-  fieldType : EditFieldType 
+  fieldType : EditFieldType
 }
 
 export interface IEntityEditSection<TValue, TCustomFields> {

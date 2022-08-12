@@ -1,11 +1,10 @@
-import { IEntityView } from 'Typing/Interfaces/EntitiesManagementPage/IEntityView'
 import { IEntityEdit } from 'Typing/Interfaces/EntityEditModal/IEntityEdit'
-import { CustomId } from 'Typing/Types/CustomId'
+import { IEntityView } from './EntitiesManagementView'
 
-export interface IBaseEntityAdapter<TEntity, TId extends CustomId> {
+export interface IBaseEntityAdapter<TEntity> {
   DefaultEntity : TEntity
 
-  AdaptEntityToManagementView(entity : TEntity) : IEntityView<TId>
+  AdaptEntityToManagementView(entity : TEntity) : IEntityView
 
-  AdaptEntityToEditView<TValue, TCustomFields>(entity : TEntity) : IEntityEdit<TId, TValue, TCustomFields>
+  AdaptEntityToEditView<TValue, TCustomFields>(entity : TEntity) : IEntityEdit<TValue, TCustomFields>
 }

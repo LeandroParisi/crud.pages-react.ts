@@ -1,7 +1,8 @@
-import { SectionType } from "./Enums/SectionType"
+import { CustomId } from 'Typing/Types'
+import { SectionType } from './Enums/SectionType'
 
-export interface IEntityView<TId extends number | string> {
-  id : TId
+export interface IEntityView {
+  id : CustomId
   name : string
   image : string
   isActive : boolean
