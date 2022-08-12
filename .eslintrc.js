@@ -69,6 +69,8 @@ module.exports = {
         // "prettier",
       ],
       rules: {
+        'no-use-before-define': 0,
+        'import/no-default-export': 1,
         'import/no-unresolved': 0,
         'import/extensions': 0,
         '@typescript-eslint/no-this-alias': 0,

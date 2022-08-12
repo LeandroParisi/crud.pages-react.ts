@@ -23,3 +23,11 @@ export interface EntitiesManagementOptions {
 
   }
 }
+
+export interface IEntityManagementStore<TId extends CustomId, TEntityTypes, TEntity> {
+  entityAdapter : IBaseEntityAdapter<TEntity, TId>
+  type : keyof TEntityTypes
+  crudActionProvider : ICrudActions<TId, TEntity>
+  classNames? : EntityManagementCSSClasses
+  options? : EntitiesManagementOptions
+}

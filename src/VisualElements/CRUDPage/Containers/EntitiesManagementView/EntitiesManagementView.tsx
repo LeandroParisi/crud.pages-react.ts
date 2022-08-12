@@ -1,9 +1,20 @@
-// import { EntityCard } from 'adminDashboard/components'
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { once } from 'lodash'
+import React, { useContext, useState } from 'react'
 import { CustomId } from 'Typing/Types/CustomId'
 import EntityCard from 'VisualElements/CRUDPage/Components/EntityCard/EntityCard'
 import styles from './EntitiesManagementView.module.scss'
-import { EntitiesManagementViewProps } from './EntitiesManagementViewProps.types'
+import { EntitiesManagementViewProps, IEntityManagementStore } from './EntitiesManagementViewProps.types'
+
+const contextFactory = once(
+  <TId extends CustomId, TEntityTypes, TEntity>() => React
+    .createContext({} as IEntityManagementStore<TId, TEntityTypes, TEntity>),
+)
+
+export function useEntitiesManagementContext<TId extends CustomId, TEntityTypes, TEntity>() {
+  return useContext(contextFactory<TId, TEntityTypes, TEntity>()
+}
+
 
 function EntitiesManagementView<TId extends CustomId, TEntityTypes, TEntity>({
   type,
@@ -13,10 +24,20 @@ function EntitiesManagementView<TId extends CustomId, TEntityTypes, TEntity>({
   classNames,
   options,
 } : EntitiesManagementViewProps<TId, TEntityTypes, TEntity>) {
+  const contextInfo : IEntityManagementStore<TId, TEntityTypes, TEntity> = {
+    entityAdapter,
+    crudActionProvider,
+    options,
+    type,
+    classNames,
+  }
   const [openModal, setOpenModal] = useState<boolean>(false)
 
+  const EntitiesManagementContext = contextFactory<TId, TEntityTypes, TEntity>()
+
   return (
-        <section className={styles.container}>
+    <EntitiesManagementContext.Provider value={contextInfo}>
+      <section className={styles.container}>
           {entities.length
             ? (
               entities?.map((entity, index) => (
@@ -45,7 +66,6 @@ function EntitiesManagementView<TId extends CustomId, TEntityTypes, TEntity>({
             tooltipText="Novo"
             onClick={() => setOpenModal(true)}
           />
-
           <Modal
             isOpened={openModal}
             close={() => setOpenModal(false)}
@@ -58,6 +78,8 @@ function EntitiesManagementView<TId extends CustomId, TEntityTypes, TEntity>({
             />
           </Modal>
         </section>
+    </EntitiesManagementContext.Provider>
+
   )
 }
 
@@ -135,4 +157,4 @@ function EntitiesManagementView<TId extends CustomId, TEntityTypes, TEntity>({
 //   deleteRequest: null,
 // }
 
-export default EntitiesContainer
+export { EntitiesManagementView }
