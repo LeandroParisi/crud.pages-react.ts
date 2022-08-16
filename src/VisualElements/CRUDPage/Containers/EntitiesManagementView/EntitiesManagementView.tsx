@@ -6,33 +6,33 @@ import styles from './EntitiesManagementView.module.scss'
 import { EntitiesManagementViewProps, IEntityManagementStore } from './EntitiesManagementView.types'
 
 const contextFactory = once(
-  <TEntityTypes, TEntity>() => React
-    .createContext({} as IEntityManagementStore<TEntityTypes, TEntity>),
+  <T, >() => React
+    .createContext({} as T),
 )
 
-export function useEntitiesManagementContext<TEntityTypes, TEntity>() {
-  return useContext(contextFactory<TEntityTypes, TEntity>())
+export function useEntitiesManagementContext<TEntity>() {
+  return useContext(contextFactory<IEntityManagementStore<TEntity>>())
 }
 
-function EntitiesManagementView<TEntityTypes, TEntity>({
-  type,
+function EntitiesManagementView<TEntity>({
+  defaultCardHeaderImage,
   crudActionProvider,
   entityAdapter,
   entities,
   classNames,
   options,
-} : EntitiesManagementViewProps<TEntityTypes, TEntity>) {
-  const contextInfo : IEntityManagementStore<TEntityTypes, TEntity> = useMemo(() => ({
+} : EntitiesManagementViewProps<TEntity>) {
+  const contextInfo : IEntityManagementStore<TEntity> = useMemo(() => ({
     entityAdapter,
     crudActionProvider,
     options,
-    type,
+    defaultCardHeaderImage,
     classNames,
   }), [])
 
-  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [openModal, setOpenModal] = useState(false)
 
-  const EntitiesManagementContext = contextFactory<TEntityTypes, TEntity>()
+  const EntitiesManagementContext = contextFactory<IEntityManagementStore<TEntity>>()
 
   return (
     <EntitiesManagementContext.Provider value={contextInfo}>
@@ -41,7 +41,7 @@ function EntitiesManagementView<TEntityTypes, TEntity>({
             ? (
               entities?.map((entity) => (
                 <EntityCard
-                  entity={entityAdapter.AdaptEntityToManagementView(entity)}
+                  entity={entity}
                 />
               ))
             )

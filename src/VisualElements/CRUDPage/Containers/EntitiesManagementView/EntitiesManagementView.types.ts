@@ -2,9 +2,9 @@
 import { ICrudActions } from 'Typing/Interfaces/IActions/ICrudActions'
 import { IBaseEntityAdapter } from 'Typing/Interfaces/IBaseEntityAdapter'
 
-export interface EntitiesManagementViewProps<TEntityTypes, TEntity> {
+export interface EntitiesManagementViewProps<TEntity> {
   entityAdapter : IBaseEntityAdapter<TEntity>
-  type : keyof TEntityTypes
+  defaultCardHeaderImage : string
   entities : Array<TEntity>
   crudActionProvider : ICrudActions<TEntity>
   classNames? : EntityManagementCSSClasses
@@ -23,9 +23,9 @@ export interface EntitiesManagementOptions {
   }
 }
 
-export interface IEntityManagementStore<TEntityTypes, TEntity> {
+export interface IEntityManagementStore<TEntity> {
   entityAdapter : IBaseEntityAdapter<TEntity>
-  type : keyof TEntityTypes
+  defaultCardHeaderImage : string
   crudActionProvider : ICrudActions<TEntity>
   classNames? : EntityManagementCSSClasses
   options? : EntitiesManagementOptions

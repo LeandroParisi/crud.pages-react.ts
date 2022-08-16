@@ -1,5 +1,3 @@
-import { IEntityView } from "Typing";
-
-export interface EntityCardProps {
-  entity : IEntityView
+export interface EntityCardProps<TEntity> {
+  entity : TEntity
 }

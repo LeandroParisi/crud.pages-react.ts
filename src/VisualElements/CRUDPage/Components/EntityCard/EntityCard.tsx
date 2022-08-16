@@ -1,6 +1,6 @@
-import classNames from 'classnames'
 import React, { useState } from 'react'
-import Modal from 'shared/templates/Modal/Modal'
+import { useEntitiesManagementContext } from 'VisualElements/CRUDPage/Containers'
+import Modal from 'VisualElements/Templates/Modal/Modal'
 import styles from './EntityCard.module.scss'
 import { EntityCardProps } from './EntityCard.types'
 import CardHeader from './subComponents/CardHeader/CardHeader'
@@ -8,12 +8,18 @@ import EditModal from './subComponents/EditModal/EditModal'
 import EntityCardSection from './subComponents/EntityCardSection/EntityCardSection'
 import SideBar from './subComponents/Sidebar/SideBar'
 
-function EntityCard({ entity } : EntityCardProps) {
+function EntityCard<TEntity>({ entity } : EntityCardProps<TEntity>) {
   const [openModal, setOpenModal] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const {
-    id, name, image, sections, isActive,
-  } = entity
+    crudActionProvider,
+    entityAdapter,
+    defaultCardHeaderImage,
+  } = useEntitiesManagementContext<TEstrntity>()
+
+  const {
+    id, image, isActive, name, sections,
+  } = entityAdapter.AdaptEntityToManagementView(entity)
 
   return (
     <>
@@ -38,6 +44,7 @@ function EntityCard({ entity } : EntityCardProps) {
         <CardHeader
           image={image}
           type={type}
+          defaultImage={defaultCardHeaderImage}
           name={name}
         />
         <hr />
