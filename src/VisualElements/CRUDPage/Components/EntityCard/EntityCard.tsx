@@ -15,7 +15,7 @@ function EntityCard<TEntity>({ entity } : EntityCardProps<TEntity>) {
     crudActionProvider,
     entityAdapter,
     defaultCardHeaderImage,
-  } = useEntitiesManagementContext<TEstrntity>()
+  } = useEntitiesManagementContext<TEntity>()
 
   const {
     id, image, isActive, name, sections,
