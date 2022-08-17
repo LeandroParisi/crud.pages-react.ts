@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import classNames from 'classnames'
+import React, { useMemo, useState } from 'react'
 import { useEntitiesManagementContext } from 'VisualElements/CRUDPage/Containers'
 import Modal from 'VisualElements/Templates/Modal/Modal'
 import styles from './EntityCard.module.scss'
@@ -19,19 +20,19 @@ function EntityCard<TEntity>({ entity } : EntityCardProps<TEntity>) {
 
   const {
     id, image, isActive, name, sections,
-  } = entityAdapter.AdaptEntityToManagementView(entity)
+  } = useMemo(() => entityAdapter.AdaptEntityToManagementView(entity), [entity])
+
+  const editEntity = useMemo(() => entityAdapter.AdaptEntityToEditView(entity), [entity])
 
   return (
     <>
       <Modal
         isOpened={openModal}
         close={() => setOpenModal(false)}
-        className={styles.editModal}
+        // className={styles.editModal}
       >
         <EditModal
           entity={editEntity}
-          type={type}
-          editRequest={editRequest}
         />
       </Modal>
 
@@ -43,8 +44,6 @@ function EntityCard<TEntity>({ entity } : EntityCardProps<TEntity>) {
       >
         <CardHeader
           image={image}
-          type={type}
-          defaultImage={defaultCardHeaderImage}
           name={name}
         />
         <hr />
@@ -61,9 +60,6 @@ function EntityCard<TEntity>({ entity } : EntityCardProps<TEntity>) {
         <SideBar
           isActive={isActive}
           openEdit={() => setOpenModal(!openModal)}
-          activate={activate}
-          deactivate={deactivate}
-          deleteRequest={deleteRequest}
           id={id}
         />
 
