@@ -23,10 +23,15 @@ export interface EntitiesManagementOptions {
   }
 }
 
+export interface CustomFieldsData {
+  
+}
+
 export interface IEntityManagementStore<TEntity> {
   entityAdapter : IBaseEntityAdapter<TEntity>
   defaultCardHeaderImage : string
   crudActionProvider : ICrudActions<TEntity>
+  customFieldsData? : CustomFieldsData
   classNames? : EntityManagementCSSClasses
   options? : EntitiesManagementOptions
 }
